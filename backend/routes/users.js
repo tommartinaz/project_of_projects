@@ -19,4 +19,14 @@ router.get('/:id', (req, res) => {
         });
 });
 
+router.post('/', (req, res) => {
+    knex('users')
+        .insert(req.body)
+        .then(
+            knex('users')
+                .select()
+                .then(data => res.send(data))
+        )
+})
+
 module.exports = router;
