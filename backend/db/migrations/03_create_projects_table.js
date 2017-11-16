@@ -2,6 +2,7 @@ exports.up = function(knex, Promise) {
     return knex.schema.createTable('projects', table => {
         table.increments();
         table.string('business_name');
+        table.string('proj_name').notNullable();
         table.string('contact_name');
         table.string('contact_phone_num');
         table.string('contact_email');
@@ -15,7 +16,8 @@ exports.up = function(knex, Promise) {
         table.boolean('is_paid');
         table.text('business_problem');
         table.string('url');
-        table.timestamps();
+        table.integer('wish_ct').defaultTo(0);
+        table.timestamps(true, true);
     })
 };
 

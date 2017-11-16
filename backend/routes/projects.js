@@ -25,7 +25,29 @@ router.post('/', (req, res) => {
         .then(
             knex('projects')
                 .select()
-                .then(data => res.send(data))
+                .then(res.redirect('/api/projects'))
+        );
+});
+
+router.post('/edit/:id', (req, res) => {
+    knex('projects')
+        .update(req.body)
+        .where('id', req.params.id)
+        .then(
+            knex('projects')
+                .select()
+                .then(res.redirect(`/api/projects/${req.params.id}`))
+        )
+})
+
+router.delete('/:id', (req, res) => {
+    knex('projects')
+        .delete()
+        .where('id', req.params.id)
+        .then(
+            knex('projects')
+                .select()
+                .then(res.redirect('/api/projects'))
         );
 });
 

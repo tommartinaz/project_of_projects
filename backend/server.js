@@ -4,13 +4,6 @@ var bodyParser = require('body-parser');
 var port = process.env.PORT || 8000;
 var cors = require('cors');
 var logger = require('morgan');
-var knex = require('./db/knex');
-
-var index = require('./routes/indexRoutes');
-var todos = require('./routes/todosRoutes');
-const projects = require('./routes/projects');
-const users = require('./routes/users');
-const locations = require('./routes/locations');
 
 var app = express();
 
@@ -22,11 +15,8 @@ app.use(cors());
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use('/api', index);
-app.use('/api/todos', todos);
-app.use('/api/projects', projects);
-app.use('/api/users', users);
-app.use('/api/locations', locations);
+const routes_setter = require('./config/routes')
+routes_setter(app)
 
 app.listen(port, function() {
 console.log("listening on port: ", port);

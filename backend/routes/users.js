@@ -25,8 +25,29 @@ router.post('/', (req, res) => {
         .then(
             knex('users')
                 .select()
-                .then(data => res.send(data))
+                .then(res.redirect('/api/users'))
         )
 })
+
+router.post('/:id', (req, res) => {
+    knex('users')
+        .update(req.body)
+        .then(
+            knex('users')
+                .select()
+                .then(res.redirect(`/api/users/${req.params.id}`))
+        )
+})
+
+router.delete('/:id', (req, res) => {
+    knex('users')
+        .delete()
+        .where('id', req.params.id)
+        .then(
+            knex('users')
+                .select()
+                .then(res.redirect('/api/users'))
+        );
+});
 
 module.exports = router;
