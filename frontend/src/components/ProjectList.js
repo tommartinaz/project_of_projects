@@ -10,14 +10,13 @@ class ProjectList extends Component {
     ProjectList() {
         console.log("THIS.PROPS.PROJECTS", this)
         return _.map(this.props.projects, project => {
-          const className = project.is_capstone_worthy ? 'blue-grey darken-1' : '';
+          const bgColor = project.is_capstone_worthy ? 'blue' : 'white';
           const textColor = project.is_capstone_worthy ? 'white' : 'black';
             return (
               <div>
                 {project.business_name &&
                     <Card
-                      className={className}
-                      style={styles.cardStyle}>
+                      style={{'width': '25vw', 'backgroundColor': bgColor}}>
                       <CardBody>
                         <CardTitle>{project.proj_name}</CardTitle>
                         <CardText style={{color: textColor}}>

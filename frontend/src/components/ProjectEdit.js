@@ -28,8 +28,9 @@ class ProjectEdit extends Component {
   locations() {
     console.log(this.props)
     return _.mapKeys(this.props.locations, location => {
+      console.log("LOCATION", location);
       return (
-        <option value={location.id}>{location.name}</option>
+        <option value={location.id}>{location.city}</option>
       )
     })
   }
@@ -50,14 +51,13 @@ class ProjectEdit extends Component {
                   />
                   Business Name: <Field name='business_name' component='input' type='text' placeholder={this.props.project.business_name} />
                 Location:
-                  <Field
+                  {this.props.locations.city && <Field
                     name='location_id'
                     component='select'
                   >
                     <option />
-                    <option value='1'>Austin</option>
-                    <option value='2'>Denver</option>
-                  </Field>
+                    {this.locations()}
+                  </Field>}
                 <br/>
               <Button color='info' type='submit'>Submit</Button>
               <Link to={`/projects/${this.props.project.id}`}>
@@ -72,6 +72,7 @@ class ProjectEdit extends Component {
 }
 
 const mapStateToProps = (state, props) => {
+  console.log("STATE_PROJ_EDIT", state)
   return {
     project: state.projects[props.match.params.id],
     locations: state.locations
